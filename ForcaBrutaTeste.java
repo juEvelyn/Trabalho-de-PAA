@@ -1,30 +1,22 @@
-import java.lang.annotation.Repeatable;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
 
 public class ForcaBrutaTeste {
-    private static final int LIMITE_MAXIMO_TEMPO_MEDIO_EM_MILISEGUNDOS = 4 * 1000; // 4 SEGUNDOS
 
     @Test
     public void forcaBrutaComSucesso() {
-        for(int i = 2; i < 100; i++) {
-            List<Integer> conjunto = ForcaBruta.geradorDeConjuntos(i);
-            
-            int somaDeTodosOsElementos = conjunto.stream().mapToInt(numero -> numero).sum();
-            int valorSoma = somaDeTodosOsElementos / conjunto.size();
-
-            long mediaDeTempoEmMilissegundos = 0;
-            for(int j = 1; j <= 150 || mediaDeTempoEmMilissegundos / j <= LIMITE_MAXIMO_TEMPO_MEDIO_EM_MILISEGUNDOS ; j ++) {
-                long inicioTeste = System.currentTimeMillis();    
-
-                boolean existeValorDaSoma = ForcaBruta.existeValorEmSomaDeSubconjuntos(conjunto, valorSoma);
-
-                long fimTeste = System.currentTimeMillis();
-
-                long diferencaDeTempoEmMilisegundos = fimTeste - inicioTeste;
-                mediaDeTempoEmMilissegundos += diferencaDeTempoEmMilisegundos;
-            }
-        }
+        List<Integer> testeExiste = Arrays.asList(10, 20, 30);
+        assertTrue(ForcaBruta.existeValor(testeExiste, 40));
     }
+    @Test
+    public void forcaBrutaComFalha() {
+        List<Integer> testeExiste = Arrays.asList(10, 20, 30);
+        assertFalse(ForcaBruta.existeValor(testeExiste, 43));
+    }
+
 }
